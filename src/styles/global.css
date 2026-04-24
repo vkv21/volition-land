@@ -13,12 +13,30 @@
   --princeton-orange: #fb8500;
   --bg: #fffaf2;
   --surface: #ffffff;
+  --surface-soft: rgba(255, 255, 255, 0.72);
   --border: rgba(2, 48, 71, 0.16);
   --text: var(--deep-space-blue);
   --text-muted: rgba(2, 48, 71, 0.72);
   --accent: var(--princeton-orange);
   --accent-soft: var(--amber-flame);
+  --focus-ring: rgba(251, 133, 0, 0.38);
   --radius: 12px;
+}
+
+:root[data-theme="dark"] {
+  --blue-green: #5fd4f2;
+  --deep-space-blue: #0a1220;
+  --amber-flame: #ffcf66;
+  --princeton-orange: #ff9d2f;
+  --bg: #0b111b;
+  --surface: #121b29;
+  --surface-soft: rgba(28, 42, 61, 0.72);
+  --border: rgba(182, 203, 229, 0.28);
+  --text: #eff5ff;
+  --text-muted: rgba(229, 240, 255, 0.78);
+  --accent: #ff9d2f;
+  --accent-soft: #ffcf66;
+  --focus-ring: rgba(255, 157, 47, 0.42);
 }
 
 html {
@@ -59,7 +77,7 @@ body {
 }
 
 .btn-primary:hover {
-  background: var(--deep-space-blue);
+  background: color-mix(in srgb, var(--accent) 82%, var(--text) 18%);
   transform: translateY(-1px);
 }
 
@@ -80,6 +98,12 @@ body {
 }
 
 .btn-secondary:hover {
-  border-color: var(--deep-space-blue);
+  border-color: color-mix(in srgb, var(--text) 65%, var(--border) 35%);
   transform: translateY(-1px);
+}
+
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 2px;
 }

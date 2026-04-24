@@ -7,8 +7,8 @@ interface Props {
 }
 
 const {
-  title = "Volition Labs",
-  description = "Volition Labs — empowering people to live more intentionally through focused communities and purposeful collaboration.",
+  title = "Volition Labs | Focused Communities and Purposeful Collaboration",
+  description = "Volition Labs builds tools and communities that help developers, professionals, and students stay accountable, connected, and intentional. Commitspace is our first social productivity app.",
 } = Astro.props;
 ---
 
@@ -20,10 +20,20 @@ const {
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="generator" content={Astro.generator} />
     <meta name="description" content={description} />
+    <meta name="color-scheme" content="light dark" />
     <title>{title}</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    <script is:inline>
+      (() => {
+        const storedTheme = localStorage.getItem("theme");
+        const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+        const theme = storedTheme === "light" || storedTheme === "dark" ? storedTheme : prefersDark ? "dark" : "light";
+        document.documentElement.dataset.theme = theme;
+        document.documentElement.style.colorScheme = theme;
+      })();
+    </script>
   </head>
   <body>
     <slot />
