@@ -62,3 +62,24 @@ body {
   background: var(--deep-space-blue);
   transform: translateY(-1px);
 }
+
+.btn-secondary {
+  display: inline-block;
+  color: var(--text);
+  border: 1px solid var(--border);
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  padding: 11px 20px;
+  border-radius: 8px;
+  text-decoration: none;
+  background: transparent;
+  transition:
+    border-color 0.2s,
+    transform 0.15s;
+}
+
+.btn-secondary:hover {
+  border-color: var(--deep-space-blue);
+  transform: translateY(-1px);
+}

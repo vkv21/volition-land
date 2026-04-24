@@ -1,16 +1,27 @@
 ---
 interface Props {
-  ctaLabel?: string;
-  ctaHref?: string;
+  commitspaceLabel?: string;
+  commitspaceHref?: string;
+  workLabel?: string;
+  workHref?: string;
 }
 
-const { ctaLabel = "Commit Space: Coming Soon", ctaHref = "#commitspace" } = Astro.props;
+const {
+  commitspaceLabel = "Commitspace",
+  commitspaceHref = "#commitspace",
+  workLabel = "Work with Volition",
+  workHref = "#work-with-us",
+} = Astro.props;
 ---
 
 <nav>
   <div class="container nav-inner">
-    <span class="logo">Volition Labs</span>
-    <a href={ctaHref} class="nav-cta">{ctaLabel}</a>
+    <a href="/" class="logo">Volition Labs</a>
+    <div class="nav-links">
+      <a href="#about">About</a>
+      <a href={commitspaceHref}>{commitspaceLabel}</a>
+      <a href={workHref} class="nav-cta">{workLabel}</a>
+    </div>
   </div>
 </nav>
 
@@ -29,6 +40,7 @@ const { ctaLabel = "Commit Space: Coming Soon", ctaHref = "#commitspace" } = Ast
   }
 
   .logo {
+    text-decoration: none;
     font-size: 0.95rem;
     font-weight: 600;
     letter-spacing: 0.02em;
@@ -36,7 +48,13 @@ const { ctaLabel = "Commit Space: Coming Soon", ctaHref = "#commitspace" } = Ast
     color: var(--text);
   }
 
-  .nav-cta {
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+  }
+
+  .nav-links a {
     font-size: 0.82rem;
     font-weight: 500;
     color: var(--text-muted);
@@ -45,5 +63,25 @@ const { ctaLabel = "Commit Space: Coming Soon", ctaHref = "#commitspace" } = Ast
     white-space: nowrap;
   }
 
-  .nav-cta:hover { color: var(--text); }
+  .nav-links a:hover {
+    color: var(--text);
+  }
+
+  .nav-cta {
+    color: var(--text);
+    font-weight: 600;
+  }
+
+  @media (max-width: 680px) {
+    .nav-inner {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 10px;
+    }
+
+    .nav-links {
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+  }
 </style>

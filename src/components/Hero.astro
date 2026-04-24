@@ -4,13 +4,17 @@ interface Props {
   subtext?: string;
   primaryLabel?: string;
   primaryHref?: string;
+  secondaryLabel?: string;
+  secondaryHref?: string;
 }
 
 const {
-  headline = "Volition Labs builds tools for focused work.",
-  subtext = "Commit Space is our first product: a calm place for people to show up, do meaningful work, and stay accountable together.",
-  primaryLabel = "See what's coming",
+  headline = "Build consistency with others. Build meaningful work together.",
+  subtext = "Volition Labs is an R&D studio helping people live and work more intentionally. We are building Commitspace, a social productivity app for focused group body doubling sessions.",
+  primaryLabel = "Join Commitspace early access",
   primaryHref = "#commitspace",
+  secondaryLabel = "Work with Volition Labs",
+  secondaryHref = "#work-with-us",
 } = Astro.props;
 ---
 
@@ -21,6 +25,7 @@ const {
     <p class="hero-sub">{subtext}</p>
     <div class="hero-actions">
       <a href={primaryHref} class="btn-primary">{primaryLabel}</a>
+      <a href={secondaryHref} class="btn-secondary">{secondaryLabel}</a>
     </div>
   </div>
 </section>
@@ -58,6 +63,9 @@ const {
   }
 
   .hero-actions {
-    display: inline-flex;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
   }
 </style>

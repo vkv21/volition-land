@@ -3,22 +3,40 @@ interface Props {
   status?: string;
   title?: string;
   body?: string;
-  notes?: string[];
-  ctaLabel?: string;
-  ctaHref?: string;
+  problemTitle?: string;
+  problemBody?: string;
+  personasTitle?: string;
+  learnerTitle?: string;
+  learnerBody?: string;
+  entrepreneurTitle?: string;
+  entrepreneurBody?: string;
+  benefits?: string[];
+  primaryCtaLabel?: string;
+  primaryCtaHref?: string;
+  secondaryCtaLabel?: string;
+  secondaryCtaHref?: string;
 }
 
 const {
   status = "Coming Soon",
-  title = "Commit Space",
-  body = "A focused coworking space for builders, creators, and small teams who want consistency over noise.",
-  notes = [
-    "Private early access opens soon.",
-    "Built by Volition Labs.",
-    "No hype. Just steady progress.",
+  title = "Commitspace",
+  body = "A social productivity app built around group body doubling sessions so remote workers and learners can reliably show up and get meaningful work done.",
+  problemTitle = "The problem we are solving",
+  problemBody = "Remote workers and learners, especially people with ADHD, often feel isolated and struggle to avoid procrastination. Commitspace creates shared momentum and accountability without noisy, unproductive social feeds.",
+  personasTitle = "Who Commitspace is for",
+  learnerTitle = "The Ambitious Learner",
+  learnerBody = "You want to code every day and prepare for interviews, but consistency is hard when no one is expecting you. Commitspace helps you show up and keep the streak going.",
+  entrepreneurTitle = "The Solo Entrepreneur",
+  entrepreneurBody = "You need accountability to focus on high-impact work, plus lightweight community and networking without wasting time. Commitspace keeps sessions intentional and action-oriented.",
+  benefits = [
+    "Live group focus sessions that make it easier to start and stay in deep work.",
+    "A calm accountability structure designed for consistency, not hustle theater.",
+    "Small, purposeful communities where progress and connection reinforce each other.",
   ],
-  ctaLabel = "Join the early list",
-  ctaHref = "mailto:hello@volitionlabs.io?subject=Commit%20Space%20Early%20Access",
+  primaryCtaLabel = "Request early access",
+  primaryCtaHref = "mailto:hello@volitionlabs.io?subject=Commitspace%20Early%20Access",
+  secondaryCtaLabel = "Talk to the team",
+  secondaryCtaHref = "mailto:hello@volitionlabs.io?subject=Commitspace%20Question",
 } = Astro.props;
 ---
 
@@ -28,10 +46,26 @@ const {
       <p class="status">{status}</p>
       <h2 class="title">{title}</h2>
       <p class="body">{body}</p>
+      <h3 class="subheading">{problemTitle}</h3>
+      <p class="problem">{problemBody}</p>
+      <h3 class="subheading">{personasTitle}</h3>
+      <div class="personas">
+        <article class="persona-card">
+          <h4>{learnerTitle}</h4>
+          <p>{learnerBody}</p>
+        </article>
+        <article class="persona-card">
+          <h4>{entrepreneurTitle}</h4>
+          <p>{entrepreneurBody}</p>
+        </article>
+      </div>
       <ul class="notes">
-        {notes.map((note) => <li>{note}</li>)}
+        {benefits.map((note) => <li>{note}</li>)}
       </ul>
-      <a href={ctaHref} class="btn-primary">{ctaLabel}</a>
+      <div class="cta-row">
+        <a href={primaryCtaHref} class="btn-primary">{primaryCtaLabel}</a>
+        <a href={secondaryCtaHref} class="btn-secondary">{secondaryCtaLabel}</a>
+      </div>
     </div>
   </div>
 </section>
@@ -72,6 +106,43 @@ const {
     max-width: 58ch;
   }
 
+  .subheading {
+    font-size: 1rem;
+    letter-spacing: 0.01em;
+    margin-bottom: 8px;
+  }
+
+  .problem {
+    color: var(--text-muted);
+    line-height: 1.7;
+    margin-bottom: 20px;
+  }
+
+  .personas {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+    margin-bottom: 20px;
+  }
+
+  .persona-card {
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px;
+    background: rgba(255, 255, 255, 0.6);
+  }
+
+  .persona-card h4 {
+    font-size: 0.94rem;
+    margin-bottom: 6px;
+  }
+
+  .persona-card p {
+    color: var(--text-muted);
+    line-height: 1.55;
+    font-size: 0.9rem;
+  }
+
   .notes {
     list-style: none;
     margin-bottom: 28px;
@@ -97,5 +168,18 @@ const {
     height: 6px;
     border-radius: 999px;
     background: var(--accent-soft);
+  }
+
+  .cta-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  @media (max-width: 760px) {
+    .personas {
+      grid-template-columns: 1fr;
+    }
   }
 </style>

@@ -9,6 +9,11 @@ const { year = new Date().getFullYear() } = Astro.props;
 <footer>
   <div class="container footer-inner">
     <span class="logo">Volition Labs</span>
+    <div class="footer-links">
+      <a href="#about">About</a>
+      <a href="#commitspace">Commitspace</a>
+      <a href="mailto:hello@volitionlabs.io?subject=Work%20with%20Volition%20Labs">Work with us</a>
+    </div>
     <span class="footer-copy">&copy; {year} Volition Labs</span>
   </div>
 </footer>
@@ -38,5 +43,22 @@ const { year = new Date().getFullYear() } = Astro.props;
   .footer-copy {
     font-size: 0.78rem;
     color: var(--text-muted);
+  }
+
+  .footer-links {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex-wrap: wrap;
+  }
+
+  .footer-links a {
+    text-decoration: none;
+    color: var(--text-muted);
+    font-size: 0.82rem;
+  }
+
+  .footer-links a:hover {
+    color: var(--text);
   }
 </style>
