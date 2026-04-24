@@ -1,0 +1,49 @@
+---
+interface Props {
+  ctaLabel?: string;
+  ctaHref?: string;
+}
+
+const { ctaLabel = "Commit Space: Coming Soon", ctaHref = "#commitspace" } = Astro.props;
+---
+
+<nav>
+  <div class="container nav-inner">
+    <span class="logo">Volition Labs</span>
+    <a href={ctaHref} class="nav-cta">{ctaLabel}</a>
+  </div>
+</nav>
+
+<style>
+  nav {
+    border-bottom: 1px solid var(--border);
+    background: var(--bg);
+  }
+
+  .nav-inner {
+    padding: 20px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  .logo {
+    font-size: 0.95rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    color: var(--text);
+  }
+
+  .nav-cta {
+    font-size: 0.82rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: color 0.2s;
+    white-space: nowrap;
+  }
+
+  .nav-cta:hover { color: var(--text); }
+</style>

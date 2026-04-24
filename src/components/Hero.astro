@@ -1,0 +1,63 @@
+---
+interface Props {
+  headline?: string;
+  subtext?: string;
+  primaryLabel?: string;
+  primaryHref?: string;
+}
+
+const {
+  headline = "Volition Labs builds tools for focused work.",
+  subtext = "Commit Space is our first product: a calm place for people to show up, do meaningful work, and stay accountable together.",
+  primaryLabel = "See what's coming",
+  primaryHref = "#commitspace",
+} = Astro.props;
+---
+
+<section class="hero">
+  <div class="container">
+    <p class="hero-kicker">From Volition Labs</p>
+    <h1 class="hero-headline">{headline}</h1>
+    <p class="hero-sub">{subtext}</p>
+    <div class="hero-actions">
+      <a href={primaryHref} class="btn-primary">{primaryLabel}</a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    padding: 88px 0 72px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .hero-kicker {
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 14px;
+  }
+
+  .hero-headline {
+    max-width: 740px;
+    font-size: clamp(2rem, 4.1vw, 3.4rem);
+    font-weight: 600;
+    line-height: 1.14;
+    letter-spacing: -0.025em;
+    margin-bottom: 18px;
+  }
+
+  .hero-sub {
+    font-size: 1rem;
+    color: var(--text-muted);
+    max-width: 620px;
+    line-height: 1.75;
+    margin-bottom: 30px;
+  }
+
+  .hero-actions {
+    display: inline-flex;
+  }
+</style>
