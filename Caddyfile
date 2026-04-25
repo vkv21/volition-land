@@ -1,4 +1,4 @@
-yourdomain.com, www.yourdomain.com {
+volitionlabs.org, www.volitionlabs.org {
   encode zstd gzip
   reverse_proxy astro:4321
 }
