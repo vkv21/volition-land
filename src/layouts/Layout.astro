@@ -27,8 +27,9 @@ const {
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
     <script is:inline>
       (() => {
-        const storedTheme = localStorage.getItem("theme");
-        const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+        const storedTheme = localStorage.getItem("theme-preference");
+        const hasSystemPreference = typeof window.matchMedia === "function";
+        const prefersDark = hasSystemPreference && window.matchMedia("(prefers-color-scheme: dark)").matches;
         const theme = storedTheme === "light" || storedTheme === "dark" ? storedTheme : prefersDark ? "dark" : "light";
         document.documentElement.dataset.theme = theme;
         document.documentElement.style.colorScheme = theme;

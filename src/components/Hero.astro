@@ -9,20 +9,24 @@ interface Props {
 }
 
 const {
-  headline = "Build consistency with others. Build meaningful work together.",
-  subtext = "Volition Labs is an R&D studio helping people live and work more intentionally. We are building Commitspace, a social productivity app for focused group body doubling sessions.",
-  primaryLabel = "Join Commitspace early access",
+  headline = "We build with intention.",
+  subtext = "Volition Labs is a space for builders to come together and build great products with intention. Commitspace is our first tool designed for structured group focus sessions.",
+  primaryLabel = "See Us In Action",
   primaryHref = "#commitspace",
-  secondaryLabel = "Work with Volition Labs",
+  secondaryLabel = "Contact us",
   secondaryHref = "#work-with-us",
 } = Astro.props;
 ---
 
 <section class="hero">
   <div class="container">
-    <p class="hero-kicker">From Volition Labs</p>
+    <p class="hero-kicker">Work With Us</p>
     <h1 class="hero-headline">{headline}</h1>
-    <p class="hero-sub">{subtext}</p>
+    <div class="hero-copy">
+      <slot>
+        <p class="hero-sub">{subtext}</p>
+      </slot>
+    </div>
     <div class="hero-actions">
       <a href={primaryHref} class="btn-primary">{primaryLabel}</a>
       <a href={secondaryHref} class="btn-secondary">{secondaryLabel}</a>
@@ -59,7 +63,23 @@ const {
     color: var(--text-muted);
     max-width: 620px;
     line-height: 1.75;
+    margin: 0;
+  }
+
+  .hero-copy {
     margin-bottom: 30px;
+  }
+
+  .hero-copy :global(p) {
+    font-size: 1rem;
+    color: var(--text-muted);
+    max-width: 620px;
+    line-height: 1.75;
+    margin: 0;
+  }
+
+  .hero-copy :global(p + p) {
+    margin-top: 0.9em;
   }
 
   .hero-actions {

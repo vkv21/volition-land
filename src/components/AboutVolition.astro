@@ -1,0 +1,124 @@
+---
+interface Props {
+  title?: string;
+  aboutBody?: string;
+  missionTitle?: string;
+  missionBody?: string;
+  buildTitle?: string;
+  buildBody?: string;
+  workTitle?: string;
+  workBody?: string;
+  workCtaLabel?: string;
+  workCtaHref?: string;
+}
+
+const {
+  title = "About Volition Labs",
+  aboutBody = "Volition Labs designs focused products and communities for better work and growth.",
+  missionTitle = "Our mission",
+  missionBody = "Help people show up consistently through simple tools and shared accountability.",
+  buildTitle = "What we are building",
+  buildBody = "Commitspace is our first product: quick-to-join focus sessions for real progress.",
+  workTitle = "Work with Volition Labs",
+  workBody = "Building thoughtful tools for focus and growth? Let's talk.",
+  workCtaLabel = "Say hello",
+  workCtaHref = "mailto:hello@volitionlabs.io?subject=Work%20with%20Volition%20Labs",
+} = Astro.props;
+---
+
+<section class="about" id="about">
+  <div class="container">
+    <div class="about-card">
+      <h2>{title}</h2>
+      <div class="about-copy">
+        <slot>
+          <p>{aboutBody}</p>
+        </slot>
+      </div>
+
+      <div class="about-grid">
+        <article>
+          <h3>{missionTitle}</h3>
+          <p>{missionBody}</p>
+        </article>
+        <article>
+          <h3>{buildTitle}</h3>
+          <p>{buildBody}</p>
+        </article>
+      </div>
+
+      <div class="work-box" id="work-with-us">
+        <h3>{workTitle}</h3>
+        <p>{workBody}</p>
+        <a href={workCtaHref} class="btn-secondary">{workCtaLabel}</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .about {
+    padding: 88px 0 72px;
+  }
+
+  .about-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 34px;
+    display: grid;
+    gap: 20px;
+  }
+
+  h2 {
+    font-size: clamp(1.5rem, 2.6vw, 2rem);
+    letter-spacing: -0.015em;
+  }
+
+  p {
+    color: var(--text-muted);
+    line-height: 1.7;
+    max-width: 70ch;
+  }
+
+  .about-copy :global(p) {
+    color: var(--text-muted);
+    line-height: 1.7;
+    max-width: 70ch;
+    margin: 0;
+  }
+
+  .about-copy :global(p + p) {
+    margin-top: 0.9em;
+  }
+
+  .about-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+  }
+
+  article {
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px;
+    background: var(--surface-soft);
+  }
+
+  h3 {
+    font-size: 0.97rem;
+  }
+
+  .work-box {
+    border-top: 1px solid var(--border);
+    padding-top: 18px;
+    display: grid;
+    gap: 14px;
+  }
+
+  @media (max-width: 760px) {
+    .about-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

@@ -54,7 +54,7 @@ const {
     button.addEventListener("click", () => {
       const nextTheme = root.dataset.theme === "dark" ? "light" : "dark";
       applyTheme(nextTheme);
-      localStorage.setItem("theme", nextTheme);
+      localStorage.setItem("theme-preference", nextTheme);
     });
   })();
 </script>

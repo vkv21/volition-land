@@ -6,10 +6,10 @@ interface Props {
   problemTitle?: string;
   problemBody?: string;
   personasTitle?: string;
-  learnerTitle?: string;
-  learnerBody?: string;
-  entrepreneurTitle?: string;
-  entrepreneurBody?: string;
+  primaryUserTitle?: string;
+  primaryUserBody?: string;
+  secondaryUserTitle?: string;
+  secondaryUserBody?: string;
   benefits?: string[];
   primaryCtaLabel?: string;
   primaryCtaHref?: string;
@@ -18,22 +18,22 @@ interface Props {
 }
 
 const {
-  status = "Coming Soon",
+  status = "Coming soon",
   title = "Commitspace",
-  body = "A social productivity app built around group body doubling sessions so remote workers and learners can reliably show up and get meaningful work done.",
-  problemTitle = "The problem we are solving",
-  problemBody = "Remote workers and learners, especially people with ADHD, often feel isolated and struggle to avoid procrastination. Commitspace creates shared momentum and accountability without noisy, unproductive social feeds.",
-  personasTitle = "Who Commitspace is for",
-  learnerTitle = "The Ambitious Learner",
-  learnerBody = "You want to code every day and prepare for interviews, but consistency is hard when no one is expecting you. Commitspace helps you show up and keep the streak going.",
-  entrepreneurTitle = "The Solo Entrepreneur",
-  entrepreneurBody = "You need accountability to focus on high-impact work, plus lightweight community and networking without wasting time. Commitspace keeps sessions intentional and action-oriented.",
+  body = "Commitspace helps remote workers and primaryUsers start, focus, and finish together.",
+  problemTitle = "Why it matters",
+  problemBody = "Working alone is hard. Commitspace adds lightweight accountability without distracting social noise.",
+  personasTitle = "Who it is for",
+  primaryUserTitle = "Deep Work",
+  primaryUserBody = "Build a daily coding habit and stay interview-ready with consistent sessions.",
+  secondaryUserTitle = "High-Impact Work",
+  secondaryUserBody = "Protect deep-work time and stay accountable on high-impact tasks.",
   benefits = [
-    "Live group focus sessions that make it easier to start and stay in deep work.",
-    "A calm accountability structure designed for consistency, not hustle theater.",
-    "Small, purposeful communities where progress and connection reinforce each other.",
+    "Live focus sessions that make starting easier.",
+    "Low-noise accountability built for consistency.",
+    "Small communities centered on progress.",
   ],
-  primaryCtaLabel = "Request early access",
+  primaryCtaLabel = "Join early access",
   primaryCtaHref = "mailto:hello@volitionlabs.io?subject=Commitspace%20Early%20Access",
   secondaryCtaLabel = "Talk to the team",
   secondaryCtaHref = "mailto:hello@volitionlabs.io?subject=Commitspace%20Question",
@@ -45,18 +45,22 @@ const {
     <div class="coming-soon-card">
       <p class="status">{status}</p>
       <h2 class="title">{title}</h2>
-      <p class="body">{body}</p>
+      <div class="body-copy">
+        <slot>
+          <p class="body">{body}</p>
+        </slot>
+      </div>
       <h3 class="subheading">{problemTitle}</h3>
       <p class="problem">{problemBody}</p>
       <h3 class="subheading">{personasTitle}</h3>
       <div class="personas">
         <article class="persona-card">
-          <h4>{learnerTitle}</h4>
-          <p>{learnerBody}</p>
+          <h4>{primaryUserTitle}</h4>
+          <p>{primaryUserBody}</p>
         </article>
         <article class="persona-card">
-          <h4>{entrepreneurTitle}</h4>
-          <p>{entrepreneurBody}</p>
+          <h4>{secondaryUserTitle}</h4>
+          <p>{secondaryUserBody}</p>
         </article>
       </div>
       <ul class="notes">
@@ -80,7 +84,9 @@ const {
     border: 1px solid var(--border);
     border-radius: var(--radius);
     padding: 34px;
-    max-width: 680px;
+    width: 100%;
+    display: grid;
+    gap: 20px;
   }
 
   .status {
@@ -89,47 +95,53 @@ const {
     letter-spacing: 0.08em;
     text-transform: uppercase;
     color: var(--blue-green);
-    margin-bottom: 10px;
   }
 
   .title {
     font-size: clamp(1.7rem, 3vw, 2.4rem);
     font-weight: 600;
     letter-spacing: -0.02em;
-    margin-bottom: 14px;
   }
 
   .body {
     color: var(--text-muted);
     line-height: 1.75;
-    margin-bottom: 22px;
     max-width: 58ch;
+    margin: 0;
+  }
+
+  .body-copy :global(p) {
+    color: var(--text-muted);
+    line-height: 1.75;
+    max-width: 58ch;
+    margin: 0;
+  }
+
+  .body-copy :global(p + p) {
+    margin-top: 0.9em;
   }
 
   .subheading {
     font-size: 1rem;
     letter-spacing: 0.01em;
-    margin-bottom: 8px;
   }
 
   .problem {
     color: var(--text-muted);
     line-height: 1.7;
-    margin-bottom: 20px;
   }
 
   .personas {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 14px;
-    margin-bottom: 20px;
   }
 
   .persona-card {
     border: 1px solid var(--border);
     border-radius: 10px;
     padding: 14px;
-    background: rgba(255, 255, 255, 0.6);
+    background: var(--surface-soft);
   }
 
   .persona-card h4 {
@@ -145,9 +157,7 @@ const {
 
   .notes {
     list-style: none;
-    margin-bottom: 28px;
-    display: flex;
-    flex-direction: column;
+    display: grid;
     gap: 10px;
   }
 
@@ -171,10 +181,16 @@ const {
   }
 
   .cta-row {
-    display: flex;
-    align-items: center;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, max-content));
     gap: 12px;
-    flex-wrap: wrap;
+    justify-content: start;
+  }
+
+  @media (max-width: 560px) {
+    .cta-row {
+      grid-template-columns: 1fr;
+    }
   }
 
   @media (max-width: 760px) {

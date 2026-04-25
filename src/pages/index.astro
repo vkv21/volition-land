@@ -1,19 +1,106 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import Nav from '../components/Nav.astro';
-import Hero from '../components/Hero.astro';
-import AboutVolition from '../components/AboutVolition.astro';
-import CommitSpace from '../components/CommitSpace.astro';
-import Footer from '../components/Footer.astro';
+import { getEntry, render } from "astro:content";
+import type { CollectionEntry } from "astro:content";
+import Layout from "../layouts/Layout.astro";
+import Nav from "../components/Nav.astro";
+import Hero from "../components/Hero.astro";
+import AboutVolition from "../components/AboutVolition.astro";
+import CommitSpace from "../components/CommitSpace.astro";
+import Footer from "../components/Footer.astro";
+
+const variant = import.meta.env.COPY_VARIANT ?? "main";
+const [heroEntry, aboutEntry, commitspaceEntry] = await Promise.all([
+  getEntry("copy", `${variant}/hero`),
+  getEntry("copy", `${variant}/about`),
+  getEntry("copy", `${variant}/commitspace`),
+]);
+
+const missingSections = [
+  !heroEntry && `${variant}/hero.md`,
+  !aboutEntry && `${variant}/about.md`,
+  !commitspaceEntry && `${variant}/commitspace.md`,
+].filter(Boolean);
+
+if (missingSections.length > 0) {
+  throw new Error(`Missing copy section files for variant "${variant}": ${missingSections.join(", ")}`);
+}
+
+const ensureEntry = (
+  entry: CollectionEntry<"copy"> | undefined,
+  fileName: string,
+): CollectionEntry<"copy"> => {
+  if (!entry) {
+    throw new Error(`Copy entry "${fileName}" was not found.`);
+  }
+
+  return entry;
+};
+
+const hero = ensureEntry(heroEntry, `${variant}/hero.md`);
+const about = ensureEntry(aboutEntry, `${variant}/about.md`);
+const commitspace = ensureEntry(commitspaceEntry, `${variant}/commitspace.md`);
+
+if (hero.data.section !== "hero") {
+  throw new Error(`Entry "${variant}/hero.md" must declare section: "hero".`);
+}
+
+if (about.data.section !== "about") {
+  throw new Error(`Entry "${variant}/about.md" must declare section: "about".`);
+}
+
+if (commitspace.data.section !== "commitspace") {
+  throw new Error(`Entry "${variant}/commitspace.md" must declare section: "commitspace".`);
+}
+
+const { Content: HeroMarkdown } = await render(hero);
+const { Content: AboutMarkdown } = await render(about);
+const { Content: CommitspaceMarkdown } = await render(commitspace);
 ---
 
-<Layout
-  title="Volition Labs | Commitspace for Accountability and Focus"
-  description="Volition Labs builds products for intentional living and purposeful collaboration. Join early access for Commitspace, our social productivity app for group body doubling sessions."
->
-  <Nav />
-  <Hero />
-  <AboutVolition />
-  <CommitSpace />
+<Layout {...hero.data.meta}>
+  <Nav {...hero.data.nav} />
+  <Hero
+    headline={hero.data.headline}
+    subtext={hero.data.subtext}
+    primaryLabel={hero.data.primaryLabel}
+    primaryHref={hero.data.primaryHref}
+    secondaryLabel={hero.data.secondaryLabel}
+    secondaryHref={hero.data.secondaryHref}
+  >
+    <HeroMarkdown />
+  </Hero>
+  <AboutVolition
+    title={about.data.title}
+    aboutBody={about.data.aboutBody}
+    missionTitle={about.data.missionTitle}
+    missionBody={about.data.missionBody}
+    buildTitle={about.data.buildTitle}
+    buildBody={about.data.buildBody}
+    workTitle={about.data.workTitle}
+    workBody={about.data.workBody}
+    workCtaLabel={about.data.workCtaLabel}
+    workCtaHref={about.data.workCtaHref}
+  >
+    <AboutMarkdown />
+  </AboutVolition>
+  <CommitSpace
+    status={commitspace.data.status}
+    title={commitspace.data.title}
+    body={commitspace.data.body}
+    problemTitle={commitspace.data.problemTitle}
+    problemBody={commitspace.data.problemBody}
+    personasTitle={commitspace.data.personasTitle}
+    primaryUserTitle={commitspace.data.primaryUserTitle}
+    primaryUserBody={commitspace.data.primaryUserBody}
+    secondaryUserTitle={commitspace.data.secondaryUserTitle}
+    secondaryUserBody={commitspace.data.secondaryUserBody}
+    benefits={commitspace.data.benefits}
+    primaryCtaLabel={commitspace.data.primaryCtaLabel}
+    primaryCtaHref={commitspace.data.primaryCtaHref}
+    secondaryCtaLabel={commitspace.data.secondaryCtaLabel}
+    secondaryCtaHref={commitspace.data.secondaryCtaHref}
+  >
+    <CommitspaceMarkdown />
+  </CommitSpace>
   <Footer />
 </Layout>
