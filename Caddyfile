@@ -1,4 +1,0 @@
-yourdomain.com, www.yourdomain.com {
-  encode zstd gzip
-  reverse_proxy astro:4321
-}

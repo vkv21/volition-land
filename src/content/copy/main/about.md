@@ -1,5 +1,7 @@
 ---
-section: about
+
+## section: about
+
 title: "About Volition Labs"
 aboutBody: "Volition Labs designs focused products and communities for better work and growth."
 missionTitle: "Our mission"
@@ -9,6 +11,6 @@ buildBody: "Commitspace is our first product: quick-to-join focus sessions for r
 workTitle: "Work with Volition Labs"
 workBody: "Building thoughtful tools for focus and growth? Let's talk."
 workCtaLabel: "Say hello"
-workCtaHref: "mailto:hello@volitionlabs.io?subject=Work%20with%20Volition%20Labs"
----
+workCtaHref: "mailto:[hello@volitionlabs.io](mailto:hello@volitionlabs.io)?subject=Work%20with%20Volition%20Labs"
+
 Volition Labs designs focused products and communities for better work and growth.
