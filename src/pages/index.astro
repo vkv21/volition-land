@@ -1,5 +1,5 @@
 ---
-import { getEntry, render } from "astro:content";
+import { getEntry } from "astro:content";
 import type { CollectionEntry } from "astro:content";
 import Layout from "../layouts/Layout.astro";
 import Nav from "../components/Nav.astro";
@@ -52,9 +52,6 @@ if (commitspace.data.section !== "commitspace") {
   throw new Error(`Entry "${variant}/commitspace.md" must declare section: "commitspace".`);
 }
 
-const { Content: HeroMarkdown } = await render(hero);
-const { Content: AboutMarkdown } = await render(about);
-const { Content: CommitspaceMarkdown } = await render(commitspace);
 ---
 
 <Layout {...hero.data.meta}>
@@ -66,9 +63,7 @@ const { Content: CommitspaceMarkdown } = await render(commitspace);
     primaryHref={hero.data.primaryHref}
     secondaryLabel={hero.data.secondaryLabel}
     secondaryHref={hero.data.secondaryHref}
-  >
-    <HeroMarkdown />
-  </Hero>
+  />
   <AboutVolition
     title={about.data.title}
     aboutBody={about.data.aboutBody}
@@ -80,15 +75,14 @@ const { Content: CommitspaceMarkdown } = await render(commitspace);
     workBody={about.data.workBody}
     workCtaLabel={about.data.workCtaLabel}
     workCtaHref={about.data.workCtaHref}
-  >
-    <AboutMarkdown />
-  </AboutVolition>
+  />
   <CommitSpace
     status={commitspace.data.status}
     title={commitspace.data.title}
     body={commitspace.data.body}
     problemTitle={commitspace.data.problemTitle}
     problemBody={commitspace.data.problemBody}
+    whatIsCards={commitspace.data.whatIsCards}
     personasTitle={commitspace.data.personasTitle}
     primaryUserTitle={commitspace.data.primaryUserTitle}
     primaryUserBody={commitspace.data.primaryUserBody}
@@ -100,7 +94,5 @@ const { Content: CommitspaceMarkdown } = await render(commitspace);
     secondaryCtaLabel={commitspace.data.secondaryCtaLabel}
     secondaryCtaHref={commitspace.data.secondaryCtaHref}
   >
-    <CommitspaceMarkdown />
-  </CommitSpace>
-  <Footer />
+    <Footer />
 </Layout>
