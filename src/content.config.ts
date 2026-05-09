@@ -43,6 +43,14 @@ const copyCollection = defineCollection({
       body: z.string().optional(),
       problemTitle: z.string(),
       problemBody: z.string(),
+      whatIsCards: z.array(
+        z.object({
+          title: z.string(),
+          body: z.string(),
+          imageSrc: z.string().optional(),
+          imageAlt: z.string().optional(),
+        }),
+      ).length(4),
       personasTitle: z.string(),
       primaryUserTitle: z.string(),
       primaryUserBody: z.string(),

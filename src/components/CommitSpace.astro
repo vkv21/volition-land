@@ -5,6 +5,7 @@ interface Props {
   body?: string;
   problemTitle?: string;
   problemBody?: string;
+  whatIsCards?: Array<{ title: string; body: string; imageSrc?: string; imageAlt?: string }>;
   personasTitle?: string;
   primaryUserTitle?: string;
   primaryUserBody?: string;
@@ -23,6 +24,24 @@ const {
   body = "Commitspace helps remote workers and primaryUsers start, focus, and finish together.",
   problemTitle = "Why it matters",
   problemBody = "Working alone is hard. Commitspace adds lightweight accountability without distracting social noise.",
+  whatIsCards = [
+    {
+      title: "Deep Work",
+      body: "Protect focused time to make progress on meaningful tasks without context switching.",
+    },
+    {
+      title: "Community",
+      body: "Stay accountable in low-noise groups that care about progress over performance.",
+    },
+    {
+      title: "Execution Rituals",
+      body: "Use simple session rituals to start quickly, commit to goals, and finish consistently.",
+    },
+    {
+      title: "Momentum Tracking",
+      body: "Build confidence by stacking completed sessions into a reliable work habit.",
+    },
+  ],
   personasTitle = "Who it is for",
   primaryUserTitle = "Deep Work",
   primaryUserBody = "Build a daily coding habit and stay interview-ready with consistent sessions.",
@@ -46,12 +65,28 @@ const {
       <p class="status">{status}</p>
       <h2 class="title">{title}</h2>
       <div class="body-copy">
-        <slot>
-          <p class="body">{body}</p>
-        </slot>
+        <p class="body">{body}</p>
       </div>
       <h3 class="subheading">{problemTitle}</h3>
       <p class="problem">{problemBody}</p>
+      <div class="what-is-cards">
+        {whatIsCards.map((card) => (
+          <article class="feature-card">
+            {card.imageSrc?.trim() ? (
+              <img
+                class="feature-card-media"
+                src={card.imageSrc}
+                alt={card.imageAlt ?? ""}
+                loading="lazy"
+              />
+            ) : (
+              <div class="feature-card-media feature-card-media--blank" aria-hidden="true" />
+            )}
+            <h4>{card.title}</h4>
+            <p>{card.body}</p>
+          </article>
+        ))}
+      </div>
       <h3 class="subheading">{personasTitle}</h3>
       <div class="personas">
         <article class="persona-card">
@@ -131,12 +166,19 @@ const {
     line-height: 1.7;
   }
 
+  .what-is-cards {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+  }
+
   .personas {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 14px;
   }
 
+  .feature-card,
   .persona-card {
     border: 1px solid var(--border);
     border-radius: 10px;
@@ -144,15 +186,41 @@ const {
     background: var(--surface-soft);
   }
 
+  .feature-card {
+    overflow: hidden;
+  }
+
+  .feature-card h4,
   .persona-card h4 {
     font-size: 0.94rem;
     margin-bottom: 6px;
   }
 
+  .feature-card p,
   .persona-card p {
     color: var(--text-muted);
     line-height: 1.55;
     font-size: 0.9rem;
+  }
+
+  .feature-card-media {
+    display: block;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    max-height: 150px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    margin-bottom: 10px;
+    box-sizing: border-box;
+  }
+
+  .feature-card-media:not(.feature-card-media--blank) {
+    object-fit: cover;
+  }
+
+  .feature-card-media--blank {
+    background: var(--surface);
+    flex-shrink: 0;
   }
 
   .notes {
@@ -194,6 +262,7 @@ const {
   }
 
   @media (max-width: 760px) {
+    .what-is-cards,
     .personas {
       grid-template-columns: 1fr;
     }
